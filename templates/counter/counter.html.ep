@@ -3,5 +3,3 @@
 Hosts: <%= $hosts %><br/>
 Hits: <%= $hits %>
 </p>
-
-
