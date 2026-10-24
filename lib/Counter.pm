@@ -16,6 +16,10 @@ sub startup {
 
 	$r->get('/')->to('Counter#main');
 	$r->get('/counter')->to('Counter#counter');
+	$r->get('/js/script.js')->to('Counter#script');
+	$r->get('/js/counter.js')->to('Counter#script');
+	$r->get('/script.js')->to('Counter#script');
+	$r->get('/counter.js')->to('Counter#script');
 	
 	$r->get('/top')->to('Counter#top');
 	$r->get('/top100')->to('Counter#top100');
@@ -37,3 +41,4 @@ sub startup {
 }
 
 1;
+

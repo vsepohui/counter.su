@@ -30,6 +30,11 @@ sub main {
 	}
 }
 
+sub script {
+	my $self = shift;
+	return $self->render(format => 'js');
+}
+
 sub counter {
 	my $self = shift;
 	my $host = $self->param('host');
