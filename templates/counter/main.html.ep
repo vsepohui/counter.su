@@ -4,7 +4,7 @@
 
 Counter code:<br/>
 <br/>
-<textarea cols="80" rows="5"><%== html_escape include 'include/code' %></textarea>
+<textarea cols="80" rows="6"><%== html_escape include 'include/code' %></textarea>
 
 
 
