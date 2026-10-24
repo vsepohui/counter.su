@@ -1,4 +1,4 @@
-<a href="https://counter.su" size="8px">Counter.su</a><br/>
+<a href="https://counter.su" style="font-size: 8px;">Counter.su</a><br/>
 Hosts: <%= $hosts %><br/>
 Hits: <%= $hits %>
 </font>
