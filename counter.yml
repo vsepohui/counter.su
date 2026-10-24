@@ -1,9 +1,8 @@
 ---
-secrets:
- - 123456
 hypnotoad:
   listen:
     - http://127.0.0.1:9080
   workers: 4
   proxy: 1
+host: counter.su
 

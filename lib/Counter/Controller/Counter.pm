@@ -10,6 +10,10 @@ use Counter::Redis;
 use Data::Validate::Domain qw(is_domain);
 use Data::Validate::IP qw(is_ipv4);
 
+sub host {
+	my $self = shift;
+	return $self->config->{host};
+}
 
 sub ip {
 	my $self = shift;

@@ -10,6 +10,8 @@ sub startup {
 	my $self = shift;
 
 	my $config = $self->plugin('NotYAMLConfig');
+	
+	$self->controller_class('Counter::Controller::Counter');
 
 	$self->secrets($config->{secrets});
 	my $r = $self->routes;

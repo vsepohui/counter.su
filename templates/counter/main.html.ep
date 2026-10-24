@@ -1,5 +1,5 @@
 % layout 'counter';
-% title 'Counter.su';
+% title $c->host;
 
 <a href="/top100">Top-100</a><br/><br/>
 
@@ -8,7 +8,7 @@ Embed HTML-code to your web-site:<br/>
 <textarea cols="80" rows="6" readonly><%== html_escape include 'include/script' %></textarea>
 <br/><br/>
 Or: <br/>
-<textarea cols="80" rows="1" readonly><script src="https://counter.su/script.js"></script></textarea>
+<textarea cols="80" rows="1" readonly><script src="https://<%= $c->host %>/script.js"></script></textarea>
 
 <br/><br/>
 
@@ -20,7 +20,7 @@ Another style of Counter (centered): <br/>
 <textarea cols="80" rows="6" readonly><%== html_escape include 'include/script', style => 'center' %></textarea>
 <br/><br/>
 Or: <br/>
-<textarea cols="80" rows="1" readonly><script src="https://counter.su/script.js?style=center"></script></textarea>
+<textarea cols="80" rows="1" readonly><script src="https://<%= $c->host %>/script.js?style=center"></script></textarea>
 
 <br/><br/>
 
