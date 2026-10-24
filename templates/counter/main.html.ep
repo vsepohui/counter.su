@@ -1,6 +1,7 @@
 % layout 'counter';
 % title 'Counter.su';
 
+<a href="/top100">Top-100</a><br/><br/>
 
 Embed HTML-code to your web-site:<br/>
 <br/>
@@ -11,6 +12,13 @@ Embed HTML-code to your web-site:<br/>
 Counter Example:<br/>
 %== include 'include/code';
 <br/>
-<a href="/top100">Top-100</a>
+
+Another style of Counter (centered): <br/>
+<textarea cols="80" rows="6"><%== html_escape include 'include/code', style => 'center' %></textarea>
+
+<br/><br/>
+
+Counter Example:<br/>
+%== include 'include/code', style => 'center';
 <br/>
 
