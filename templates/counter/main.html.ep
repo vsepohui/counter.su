@@ -13,5 +13,17 @@ Counter code:<br/>
 <br/><br/>
 %== include 'include/code';
 
+<br/><br/>
+
+Top-100:
+
+<ul>
+% my $i = 0;
+% for (@$top) {
+	<li><%= $_ %>, <%= $stat->{$_}->{hosts} %>, <%= $stat->{$_}->{hits} %></li>
+	% last if ++$i >= 100;
+% }
+</ul>
+
 <br/>
 Counter by <a href="https://trunaev.ru">Ivan Trunaev</a>.

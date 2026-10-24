@@ -16,9 +16,38 @@ sub ip {
 	return $self = $self->tx->remote_address;
 }
 
+sub redis {
+	state $redis = new Counter::Redis;
+	return $redis;
+}
+
 sub main {
 	my $self = shift;
-	$self->render(msg => 'COUNTER.SU!');
+	
+	my ($sec,$min,$hour,$mday,$mon,$year,$wday,$yday,$isdst) = localtime(time);
+	$mon ++; $year += 1900;
+	my $date = sprintf("%d-%02d-%02d", $year, $mon, $mday);
+	
+	my $redis = $self->redis;
+	
+		
+	my @hosts = @{$redis->hkeys($date .'-hosts')};
+	
+	my %stat;
+	
+	for (@hosts) {
+		my $hits = $redis->get($date . '-' . $_ . '-hits') // 0;
+		my $hosts = scalar @{$redis->hkeys($date .'-' .$_ .'-hotsts')};
+		$stat{$_} = {
+			hits 	=> $hits,
+			hosts 	=> $hosts,
+		};
+	}
+	
+	my @top = sort {$stat{$a}->{hosts} <=> $stat{$b}->{hosts}} keys %stat;
+	
+		
+	$self->render(stat => \%stat, top => \@top);
 }
 
 sub counter {
@@ -31,7 +60,7 @@ sub counter {
 	$mon ++; $year += 1900;
 	my $date = sprintf("%d-%02d-%02d", $year, $mon, $mday);
 	
-	state $redis = new Counter::Redis;
+	my $redis = $self->redis;
 	
 	my $key = $date .'-' . $host;
 	
@@ -40,6 +69,8 @@ sub counter {
 	$redis->incr($key . '-hits');
 	
 	$redis->hset($key .'-hotsts', $self->ip, 1);
+	
+	$redis->hset($date .'-hosts', $host, 1);
 	
 	
 	my $hosts = scalar @{$redis->hkeys($key .'-hotsts')};
