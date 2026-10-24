@@ -9,6 +9,9 @@ Counter code:<br/>
 </textarea>
 
 
+
 <br/><br/>
 %== include 'include/code';
 
+<br/>
+Counter by <a href="https://trunaev.ru">Ivan Trunaev</a>.
