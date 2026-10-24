@@ -1,4 +1,4 @@
-HOSTS: 123<br/>
-HITS: 1234
+Hosts: <%= $hosts %><br/>
+Hits: <%= $hits %>
 
 
