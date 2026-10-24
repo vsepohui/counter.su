@@ -13,7 +13,7 @@ Or: <br/>
 <br/><br/>
 
 Counter Example:<br/>
-%== include 'include/code';
+%== include 'include/script';
 <br/>
 
 Another style of Counter (centered): <br/>
@@ -25,6 +25,6 @@ Or: <br/>
 <br/><br/>
 
 Counter Example:<br/>
-%== include 'include/code', style => 'center';
+%== include 'include/script', style => 'center';
 <br/>
 
