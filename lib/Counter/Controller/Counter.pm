@@ -35,25 +35,37 @@ sub counter {
 	my $host = $self->param('host');
 	
 	$host = 'invalid' unless is_domain($host) || is_ipv4($host);
+
+	my $redis = $self->redis;
 	
+	my $ip = $self->ip;
+	my $k = "lock:$ip";
+
 	my ($sec,$min,$hour,$mday,$mon,$year,$wday,$yday,$isdst) = localtime(time);
 	$mon ++; $year += 1900;
 	my $date = sprintf("%d-%02d-%02d", $year, $mon, $mday);
 	
-	my $redis = $self->redis;
-	
+
 	my $key = $date .'-' . $host;
-	
 	my $hits = $redis->get($key . '-hits') // 0;
-	$hits ++;
-	$redis->incr($key . '-hits');
-	
-	$redis->hset($key .'-hotsts', $self->ip, 1) unless $redis->hexists($key .'-hotsts', $self->ip);
-	
-	$redis->hset($date .'-hosts', $host, 1) unless $redis->hexists($date .'-hosts', $host);
-	
-	
 	my $hosts = scalar @{$redis->hkeys($key .'-hotsts')};
+	
+	unless ($redis->get($k)) {
+
+		$hits ++;
+		$redis->incr($key . '-hits');
+		
+		$redis->hset($key .'-hotsts', $self->ip, 1) unless $redis->hexists($key .'-hotsts', $ip);
+		
+		$redis->hset($date .'-hosts', $host, 1) unless $redis->hexists($date .'-hosts', $host);
+		
+		$redis->setex($k, 3, 1);
+	}
+	
+
+	
+	
+	
 
 	$self->render(
 		template 	=> 'counter/counter',

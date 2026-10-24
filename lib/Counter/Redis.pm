@@ -45,6 +45,14 @@ sub set {
 	return $self->redis->set($key => $val);
 }
 
+sub setex {
+	my $self = shift;
+	my $key = $self->build_key(shift);
+	my $timeout = shift;
+	my $val = shift;
+	return $self->redis->setex($key, $timeout   => $val);
+}
+
 sub incr {
 	my $self = shift;
 	my $key = $self->build_key(shift);
