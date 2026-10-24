@@ -1,0 +1,5 @@
+<script>
+var url = new URL(window.location.href);
+document.write("<iframe src='https://counter.su/counter?host="+url.hostname+"' width='140' height='60' frameborder='0'></iframe>");
+
+</script>

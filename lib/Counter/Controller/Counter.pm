@@ -11,4 +11,10 @@ sub main {
 	$self->render(msg => 'COUNTER.SU!');
 }
 
+sub counter {
+	my $self = shift;
+	my $host = $self->param('host');
+	$self->render(msg => $host);
+}
+
 1;

@@ -1,4 +1,14 @@
 % layout 'counter';
-% title 'Welcome';
-<h2><%= $msg %></h2>
+% title 'Counter.su';
+
+
+Counter code:<br/>
+<br/>
+<textarea cols="80" rows="10">
+%== html_escape include 'include/code';
+</textarea>
+
+
+<br/><br/>
+%== include 'include/code';
 
