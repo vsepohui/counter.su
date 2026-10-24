@@ -24,6 +24,10 @@ sub redis {
 sub main {
 	my $self = shift;
 	
+	if (my $host = $self->param('host')) {
+		return $self->counter;
+	}
+	
 	my ($sec,$min,$hour,$mday,$mon,$year,$wday,$yday,$isdst) = localtime(time);
 	$mon ++; $year += 1900;
 	my $date = sprintf("%d-%02d-%02d", $year, $mon, $mday);
@@ -76,8 +80,9 @@ sub counter {
 	my $hosts = scalar @{$redis->hkeys($key .'-hotsts')};
 
 	$self->render(
-		hits => $hits,
-		hosts => $hosts,
+		template 	=> 'counter/counter',
+		hits 		=> $hits,
+		hosts 		=> $hosts,
 	);
 }
 
