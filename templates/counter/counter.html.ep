@@ -1,3 +1,4 @@
+<a href="https://counter.su">Counter.su</a>
 Hosts: <%= $hosts %><br/>
 Hits: <%= $hits %>
 
