@@ -82,34 +82,40 @@ sub top {
 sub top100 {
 	my $self = shift;
 	
-	my ($sec,$min,$hour,$mday,$mon,$year,$wday,$yday,$isdst) = localtime(time);
-	$mon ++; $year += 1900;
-	my $date = sprintf("%d-%02d-%02d", $year, $mon, $mday);
-	
 	my $redis = $self->redis;
 	
+	my $top100 = $redis->get('top100');
+	unless ($top100) {	
+		my ($sec,$min,$hour,$mday,$mon,$year,$wday,$yday,$isdst) = localtime(time);
+		$mon ++; $year += 1900;
+		my $date = sprintf("%d-%02d-%02d", $year, $mon, $mday);
 		
-	my @hosts = @{$redis->hkeys($date .'-hosts')};
-	
-	my %stat;
-	
-	for (@hosts) {
-		my $hits = $redis->get($date . '-' . $_ . '-hits') // 0;
-		my $hosts = scalar @{$redis->hkeys($date .'-' .$_ .'-hotsts')};
-		$stat{$_} = {
-			hits 	=> $hits,
-			hosts 	=> $hosts,
-		};
+		my @hosts = @{$redis->hkeys($date .'-hosts')};
+		
+		my %stat;
+		
+		for (@hosts) {
+			my $hits = $redis->get($date . '-' . $_ . '-hits') // 0;
+			my $hosts = scalar @{$redis->hkeys($date .'-' .$_ .'-hotsts')};
+			$stat{$_} = {
+				hits 	=> $hits,
+				hosts 	=> $hosts,
+			};
+		}
+		
+		my @top = sort {$stat{$b}->{hosts} <=> $stat{$a}->{hosts} || $stat{$b}->{hits} <=> $stat{$a}->{hits} || $a cmp $b} keys %stat;
+		
+		$top100 = $self->render_to_string(
+			'counter/top100',
+			format 	=> 'txt',
+			stat 	=> \%stat,
+			top 	=> \@top,
+		);
+		
+		$redis->setex('top100', 3 => $top100);
 	}
 	
-	my @top = sort {$stat{$b}->{hosts} <=> $stat{$a}->{hosts} || $stat{$b}->{hits} <=> $stat{$a}->{hits} || $a cmp $b} keys %stat;
-	
-		
-	$self->render(
-		format => 'txt',
-		stat 	=> \%stat,
-		top 	=> \@top,
-	);
+	return $self->render(data => $top100, format => 'txt');
 }
 
 1;
