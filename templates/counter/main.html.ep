@@ -6,24 +6,11 @@ Embed HTML-code to your web-site:<br/>
 <br/>
 <textarea cols="80" rows="6"><%== html_escape include 'include/code' %></textarea>
 
-
-
 <br/><br/>
 
 Counter Example:<br/>
 %== include 'include/code';
-
-<br/><br/>
-
-Top-100:
-
-<ul>
-% my $i = 0;
-% for (@$top) {
-	<li><% if ($_ ne 'invalid') { %><a href="https://<%= $_ %>"><% } %><%= $_ %><% if ($_ ne 'invalid') { %></a><% } %>, <%= $stat->{$_}->{hosts} %>, <%= $stat->{$_}->{hits} %></li>
-	% last if ++$i >= 100;
-% }
-</ul>
-
 <br/>
-Counter by <a href="https://trunaev.ru">Ivan Trunaev</a>.
+<a href="/top100">Top-100</a>
+<br/>
+

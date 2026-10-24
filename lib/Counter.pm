@@ -17,6 +17,9 @@ sub startup {
 	$r->get('/')->to('Counter#main');
 	$r->get('/counter')->to('Counter#counter');
 	
+	$r->get('/top')->to('Counter#top');
+	$r->get('/top100')->to('Counter#top100');
+	
 	$self->helper(
 		'html_escape' => sub {
 			my $self = shift;

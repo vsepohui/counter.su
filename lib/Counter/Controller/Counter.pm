@@ -28,31 +28,6 @@ sub main {
 	if (defined $host) {
 		return $self->counter;
 	}
-	
-	my ($sec,$min,$hour,$mday,$mon,$year,$wday,$yday,$isdst) = localtime(time);
-	$mon ++; $year += 1900;
-	my $date = sprintf("%d-%02d-%02d", $year, $mon, $mday);
-	
-	my $redis = $self->redis;
-	
-		
-	my @hosts = @{$redis->hkeys($date .'-hosts')};
-	
-	my %stat;
-	
-	for (@hosts) {
-		my $hits = $redis->get($date . '-' . $_ . '-hits') // 0;
-		my $hosts = scalar @{$redis->hkeys($date .'-' .$_ .'-hotsts')};
-		$stat{$_} = {
-			hits 	=> $hits,
-			hosts 	=> $hosts,
-		};
-	}
-	
-	my @top = sort {$stat{$b}->{hosts} <=> $stat{$a}->{hosts} || $stat{$b}->{hits} <=> $stat{$a}->{hits} || $a cmp $b} keys %stat;
-	
-		
-	$self->render(stat => \%stat, top => \@top);
 }
 
 sub counter {
@@ -84,6 +59,44 @@ sub counter {
 		template 	=> 'counter/counter',
 		hits 		=> $hits,
 		hosts 		=> $hosts,
+	);
+}
+
+sub top {
+	my $self = shift;
+	return $self->redirect_to('/top100');
+}
+
+sub top100 {
+	my $self = shift;
+	
+	my ($sec,$min,$hour,$mday,$mon,$year,$wday,$yday,$isdst) = localtime(time);
+	$mon ++; $year += 1900;
+	my $date = sprintf("%d-%02d-%02d", $year, $mon, $mday);
+	
+	my $redis = $self->redis;
+	
+		
+	my @hosts = @{$redis->hkeys($date .'-hosts')};
+	
+	my %stat;
+	
+	for (@hosts) {
+		my $hits = $redis->get($date . '-' . $_ . '-hits') // 0;
+		my $hosts = scalar @{$redis->hkeys($date .'-' .$_ .'-hotsts')};
+		$stat{$_} = {
+			hits 	=> $hits,
+			hosts 	=> $hosts,
+		};
+	}
+	
+	my @top = sort {$stat{$b}->{hosts} <=> $stat{$a}->{hosts} || $stat{$b}->{hits} <=> $stat{$a}->{hits} || $a cmp $b} keys %stat;
+	
+		
+	$self->render(
+		format => 'txt',
+		stat 	=> \%stat,
+		top 	=> \@top,
 	);
 }
 
