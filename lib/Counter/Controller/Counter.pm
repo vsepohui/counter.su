@@ -44,7 +44,7 @@ sub main {
 		};
 	}
 	
-	my @top = sort {$stat{$b}->{hosts} <=> $stat{$a}->{hosts} || $a cmp $b} keys %stat;
+	my @top = sort {$stat{$b}->{hosts} <=> $stat{$a}->{hosts} || $stat{$b}->{hits} <=> $stat{$a}->{hits} || $a cmp $b} keys %stat;
 	
 		
 	$self->render(stat => \%stat, top => \@top);
