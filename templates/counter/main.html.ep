@@ -6,6 +6,9 @@
 Embed HTML-code to your web-site:<br/>
 <br/>
 <textarea cols="80" rows="6"><%== html_escape include 'include/code' %></textarea>
+<br/><br/>
+Or: <br/>
+<textarea cols="80" rows="1"><script src="https://counter.su/script.js"></script></textarea>
 
 <br/><br/>
 
@@ -15,6 +18,9 @@ Counter Example:<br/>
 
 Another style of Counter (centered): <br/>
 <textarea cols="80" rows="6"><%== html_escape include 'include/code', style => 'center' %></textarea>
+<br/><br/>
+Or: <br/>
+<textarea cols="80" rows="1"><script src="https://counter.su/script.js?style=center"></script></textarea>
 
 <br/><br/>
 
