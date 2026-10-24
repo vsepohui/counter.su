@@ -58,6 +58,13 @@ sub hget {
 	return $self->redis->hget($key, $field);
 }
 
+sub hexists {
+	my $self = shift;
+	my $key = $self->build_key(shift);
+	my $field = shift;
+	return $self->redis->hexists($key, $field);	
+}
+
 sub hset {
 	my $self = shift;
 	my $key = $self->build_key(shift);

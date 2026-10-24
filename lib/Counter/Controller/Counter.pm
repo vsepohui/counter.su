@@ -68,9 +68,9 @@ sub counter {
 	$hits ++;
 	$redis->incr($key . '-hits');
 	
-	$redis->hset($key .'-hotsts', $self->ip, 1);
+	$redis->hset($key .'-hotsts', $self->ip, 1) unless $redis->hexists($key .'-hotsts', $self->ip);
 	
-	$redis->hset($date .'-hosts', $host, 1);
+	$redis->hset($date .'-hosts', $host, 1) unless $redis->hexists($date .'-hosts', $host);
 	
 	
 	my $hosts = scalar @{$redis->hkeys($key .'-hotsts')};
