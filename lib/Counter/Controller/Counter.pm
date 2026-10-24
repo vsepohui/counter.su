@@ -11,6 +11,11 @@ use Data::Validate::Domain qw(is_domain);
 use Data::Validate::IP qw(is_ipv4);
 
 
+sub ip {
+	my $self = shift;
+	return $self = $self->tx->remote_address;
+}
+
 sub main {
 	my $self = shift;
 	$self->render(msg => 'COUNTER.SU!');
@@ -34,7 +39,10 @@ sub counter {
 	$hits ++;
 	$redis->incr($key . '-hits');
 	
-	my $hosts = 0;
+	$redis->hset($key .'-hotsts', $self->ip, 1);
+	
+	
+	my $hosts = scalar @{$redis->hkeys($key .'-hotsts')};
 
 	$self->render(
 		hits => $hits,

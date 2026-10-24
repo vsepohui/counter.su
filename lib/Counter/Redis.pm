@@ -51,4 +51,27 @@ sub incr {
 	return $self->redis->incr($key);
 }
 
+sub hget {
+	my $self = shift;
+	my $key = $self->build_key(shift);
+	my $field = shift;
+	return $self->redis->hget($key, $field);
+}
+
+sub hset {
+	my $self = shift;
+	my $key = $self->build_key(shift);
+	my $field = shift;
+	my $val = shift;
+	return $self->redis->hset($key, $field, $val);
+}
+
+sub hkeys {
+	my $self = shift;
+	my $key = $self->build_key(shift);
+	return $self->redis->hkeys($key);
+}
+
+
+
 1;
