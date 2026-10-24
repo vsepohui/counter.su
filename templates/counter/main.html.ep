@@ -1,0 +1,4 @@
+% layout 'counter';
+% title 'Welcome';
+<h2><%= $msg %></h2>
+

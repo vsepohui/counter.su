@@ -1,20 +1,20 @@
 package Counter;
-use Mojo::Base 'Mojolicious', -signatures;
 
-# This method will run once at server start
-sub startup ($self) {
+use 5.022;
+use warnings;
 
-  # Load configuration from config file
-  my $config = $self->plugin('NotYAMLConfig');
+use Mojo::Base 'Mojolicious';
 
-  # Configure the application
-  $self->secrets($config->{secrets});
 
-  # Router
-  my $r = $self->routes;
+sub startup {
+	my $self = shift;
 
-  # Normal route to controller
-  $r->get('/')->to('Example#welcome');
+	my $config = $self->plugin('NotYAMLConfig');
+
+	$self->secrets($config->{secrets});
+	my $r = $self->routes;
+
+	$r->get('/')->to('Counter#main');
 }
 
 1;
