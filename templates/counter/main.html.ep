@@ -9,6 +9,8 @@ Embed HTML-code to your web-site:<br/>
 
 
 <br/><br/>
+
+Counter Example:<br/>
 %== include 'include/code';
 
 <br/><br/>
