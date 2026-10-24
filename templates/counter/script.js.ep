@@ -1,1 +1,1 @@
-%== include 'code', style => param 'style';
+%== include 'include/code', format => 'html', style => param 'style';
