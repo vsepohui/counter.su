@@ -18,7 +18,7 @@ Top-100:
 <ul>
 % my $i = 0;
 % for (@$top) {
-	<li><a href="https://<%= $_ %>"><%= $_ %></a>, <%= $stat->{$_}->{hosts} %>, <%= $stat->{$_}->{hits} %></li>
+	<li><% if ($_ ne 'invalid') { %><a href="https://<%= $_ %>"><% } %><%= $_ %><% if ($_ ne 'invalid') { %></a><% } %>, <%= $stat->{$_}->{hosts} %>, <%= $stat->{$_}->{hits} %></li>
 	% last if ++$i >= 100;
 % }
 </ul>
