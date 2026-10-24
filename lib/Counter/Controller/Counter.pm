@@ -24,7 +24,8 @@ sub redis {
 sub main {
 	my $self = shift;
 	
-	if (my $host = $self->param('host')) {
+	my $host = $self->param('host');
+	if (defined $host) {
 		return $self->counter;
 	}
 	
@@ -58,7 +59,7 @@ sub counter {
 	my $self = shift;
 	my $host = $self->param('host');
 	
-	return $self->reply->not_found unless is_domain($host) || is_ipv4($host);
+	$host = 'invalid' unless is_domain($host) || is_ipv4($host);
 	
 	my ($sec,$min,$hour,$mday,$mon,$year,$wday,$yday,$isdst) = localtime(time);
 	$mon ++; $year += 1900;
