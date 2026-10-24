@@ -2,7 +2,7 @@
 % title 'Counter.su';
 
 
-Counter code:<br/>
+Embed HTML-code to your web-site:<br/>
 <br/>
 <textarea cols="80" rows="6"><%== html_escape include 'include/code' %></textarea>
 
