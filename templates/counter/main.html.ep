@@ -5,7 +5,7 @@
 
 Embed HTML-code to your web-site:<br/>
 <br/>
-<textarea cols="80" rows="6" readonly><%== html_escape include 'include/code' %></textarea>
+<textarea cols="80" rows="6" readonly><%== html_escape include 'include/script' %></textarea>
 <br/><br/>
 Or: <br/>
 <textarea cols="80" rows="1" readonly><script src="https://counter.su/script.js"></script></textarea>
@@ -17,7 +17,7 @@ Counter Example:<br/>
 <br/>
 
 Another style of Counter (centered): <br/>
-<textarea cols="80" rows="6" readonly><%== html_escape include 'include/code', style => 'center' %></textarea>
+<textarea cols="80" rows="6" readonly><%== html_escape include 'include/script', style => 'center' %></textarea>
 <br/><br/>
 Or: <br/>
 <textarea cols="80" rows="1" readonly><script src="https://counter.su/script.js?style=center"></script></textarea>
